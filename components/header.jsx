@@ -29,6 +29,12 @@ export default function Header() {
 
             {/*right side action */}
             <div className='flex items-center'>
+              <SignedIn>
+                {/* {create events} */}
+                
+              <UserButton />
+            </SignedIn>
+
               <SignedOut>
                 <SignInButton mode='modal'>
                 
@@ -36,9 +42,6 @@ export default function Header() {
                 </SignInButton>
                 
             </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
             </div>
           </div>
           {/*mobile search */}
