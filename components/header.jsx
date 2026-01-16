@@ -13,7 +13,7 @@ export default function Header() {
 
 
    const {isLoading}=useStoreUser();
-   const [showUpgradedModal,setShowUpgradedModal]=useState();
+   const [showUpgradedModal,setShowUpgradedModal]=useState(false);
 
 
   return (
@@ -34,7 +34,7 @@ export default function Header() {
 
             {/*right side action */}
             <div className='flex items-center'>
-              <Button variant={"ghost"} size='sm' onClick={setShowUpgradedModal}>
+              <Button variant={"ghost"} size='sm' onClick={()=>setShowUpgradedModal(true)}>
                   Pricing
                 </Button>
                 <Button variant={"ghost"} size='sm' asChild className={'mr-2'}>
