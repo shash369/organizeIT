@@ -1,17 +1,19 @@
 "use client";
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import {SignInButton, UserButton} from '@clerk/nextjs'
 import { Button } from './ui/button'
 import { Authenticated, Unauthenticated } from 'convex/react'
 import {BarLoader} from "react-spinners"
 import { useStoreUser } from '@/hooks/use-store-user';
+import { Building, Plus, Ticket } from 'lucide-react';
 
 export default function Header() {
 
 
    const {isLoading}=useStoreUser();
+   const [showUpgradedModal,setShowUpgradedModal]=useState();
 
 
   return (
@@ -32,11 +34,41 @@ export default function Header() {
 
             {/*right side action */}
             <div className='flex items-center'>
+              <Button variant={"ghost"} size='sm' onClick={setShowUpgradedModal}>
+                  Pricing
+                </Button>
+                <Button variant={"ghost"} size='sm' asChild className={'mr-2'}>
+                  <Link href={"/explore"}>Explore</Link>
+                </Button>
+
               <Authenticated>
                 {/* {create events} */}
+                 <Button size='sm' asChild className={'flex gap-2 mr-4'}>
+                  <Link href={"/create-event"}>
+                    <Plus className='w-4 h-4' />
+                    <span className='hidden sm:inline'>Create Event</span>
+                  </Link>
+                </Button>
 
-              <UserButton />
+              <UserButton>
+                 <UserButton.MenuItems>
+                  <UserButton.Link
+                    label='My Tickets'
+                    labelIcon={<Ticket size={16}/>}
+                    href='/my-tickets'                  
+                  />
+                  <UserButton.Link
+                    label='My Events'
+                    labelIcon={<Building size={16}/>}
+                    href='/my-events'                  
+                  />
+
+
+                  <UserButton.Action label='manageAccount'/>
+                 </UserButton.MenuItems>
+              </UserButton>
             </Authenticated>
+               
 
               <Unauthenticated>
                 <SignInButton mode='modal'>
