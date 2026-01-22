@@ -1,79 +1,88 @@
 import { defineSchema, defineTable } from "convex/server";
-import {v} from "convex/values"
+import { v } from "convex/values";
 
 export default defineSchema({
-    //ut
-    users:defineTable({
-        name:v.string(),
-        tokenIdentifier:v.string(),//id for auth
-        email:v.string(),
-        imageUrl:v.optional(v.string()),
-        
+  // Users table
+  users: defineTable({
+    // Clerk auth
+    email: v.string(),
+    tokenIdentifier: v.string(), // Clerk user ID for auth
+    name: v.string(),
+    imageUrl: v.optional(v.string()),
 
-        hasCompletedOnboarding:v.boolean(),
+    // Onboarding
+    hasCompletedOnboarding: v.boolean(),
 
-        location:v.optional(
-          v.object({
-            city:v.string(),
-            state:v.optional(v.string()),
-            country:v.string(),
-          })  
-        ),
+    // Attendee preferences (from onboarding)
+    location: v.optional(
+      v.object({
+        city: v.string(),
+        state: v.optional(v.string()), // Added state field
+        country: v.string(),
+      })
+    ),
+    interests: v.optional(v.array(v.string())), // Min 3 categories
 
-        interests:v.optional(v.array(v.string())),//min three events
+    // Organizer tracking (User Subscription)
+    freeEventsCreated: v.number(), // Track free event limit (1 free)
 
-        freeEventsCreated:v.number(),//track free number
+    plan: v.union(v.literal("free"), v.literal("pro")),
 
-        createdAt:v.number(),
-        updatedAt:v.number(),
-    }).index("by_token",["tokenIdentifier"]),
 
-    events:defineTable({
-      title:v.string(),
-      description:v.string(),
-      slug:v.string(),
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_token", ["tokenIdentifier"]), // Primary auth lookup
 
-      //org
-      organizerId:v.id("users"),
-      organizerName:v.string(),
+  // Events table
+  events: defineTable({
+    title: v.string(),
+    description: v.string(),
+    slug: v.string(),
 
-      //eve details
-      category:v.string(),
-      tags:v.array(v.string()),
+    // Organizer
+    organizerId: v.id("users"),
+    organizerName: v.string(),
 
-      //date time
-      startDate:v.number(),
-      endDate:v.number(),
-      timezone:v.string(),
+    // Event details
+    category: v.string(),
+    tags: v.array(v.string()),
 
-      //location
-      locationType:v.union(v.literal("physical"),v.literal("online")),
-      venue:v.optional(v.string()),
-      address:v.optional(v.string()),
-      city:v.string(),
-      state:v.optional(v.string()),
+    // Date & Time
+    startDate: v.number(),
+    endDate: v.number(),
+    timezone: v.string(),
 
-      //cap
-      capacity:v.number(),
-      ticketType:v.union(v.literal("free"),v.literal("paid")),
-      ticketPrice:v.optional(v.number()),//paid or free
-      registrationCount:v.number(),
+    // Location
+    locationType: v.union(v.literal("physical"), v.literal("online")),
+    venue: v.optional(v.string()),
+    address: v.optional(v.string()),
+    city: v.string(),
+    state: v.optional(v.string()), // Added state field
+    country: v.string(),
 
-      //custom
-      coverImage:v.optional(v.string()),
-      themeColor:v.optional(v.string()),
-      
-      //time
-      createdAt:v.number(),
-      updatedAt:v.number()
-    })
+    // Capacity & Ticketing
+    capacity: v.number(),
+    ticketType: v.union(v.literal("free"), v.literal("paid")),
+    ticketPrice: v.optional(v.number()), // Paid at event offline
+    registrationCount: v.number(),
+
+    // Customization
+    coverImage: v.optional(v.string()),
+    themeColor: v.optional(v.string()),
+
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
     .index("by_organizer", ["organizerId"])
     .index("by_category", ["category"])
     .index("by_start_date", ["startDate"])
     .index("by_slug", ["slug"])
     .searchIndex("search_title", { searchField: "title" }),
 
-    registrations: defineTable({
+  // Registrations/Tickets
+  registrations: defineTable({
     eventId: v.id("events"),
     userId: v.id("users"),
 
