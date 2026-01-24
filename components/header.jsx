@@ -123,7 +123,7 @@ export default function Header() {
         )}
       </nav>
 
-      {/* Onboarding Modal */}
+      {/* Onboarding Modal change */}
       <OnboardingModal
         isOpen={showOnboarding}
         onClose={handleOnboardingSkip}
