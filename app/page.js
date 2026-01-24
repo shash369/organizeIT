@@ -13,7 +13,7 @@ export default function LandingPage() {
           <div className="text-center sm:text-left">
             <div className="mb-6">
               <span className="text-gray-500 font-light tracking-wide">
-                spott<span className="text-purple-400">*</span>
+                CoordinateIT<span >🗓️</span>
               </span>
             </div>
 
@@ -41,7 +41,7 @@ export default function LandingPage() {
           {/* Right - 3D Phone Mockup */}
           <div className="relative block">
             <Image
-              src="/hero.png"
+              src="/hero1.png"
               // src="/hero.gif"
               alt="react meetup"
               width={700}
@@ -49,24 +49,6 @@ export default function LandingPage() {
               className="w-full h-auto"
               priority
             />
-            {/* <video
-              width="100%"
-              height="100%"
-              loop
-              playsInline
-              autoPlay
-              muted
-              className="w-full h-auto"
-            >
-              <source
-                src="https://cdn.lu.ma/landing/phone-dark.mp4"
-                type="video/mp4;codecs=hvc1"
-              />
-              <source
-                src="https://cdn.lu.ma/landing/phone-dark.webm"
-                type="video/webm"
-              />
-            </video> */}
           </div>
         </div>
       </section>

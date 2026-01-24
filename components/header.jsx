@@ -19,8 +19,7 @@ export default function Header() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const { isLoading } = useStoreUser();
-  const { showOnboarding, handleOnboardingComplete, handleOnboardingSkip } =
-    useOnboarding();
+  const { showOnboarding, handleOnboardingComplete,handleOnboardingSkip }=useOnboarding();
 
   const { has } = useAuth();
   const hasPro = has?.({ plan: "pro" });
@@ -32,10 +31,10 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/spott.png"
-              alt="Spott logo"
-              width={500}
-              height={500}
+              src="/CoordinateIT.png"
+              alt="CoordinateIT logo"
+              width={600}
+              height={600}
               className="w-full h-11"
               priority
             />
