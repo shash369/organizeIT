@@ -69,8 +69,10 @@ export default function CreateEventPage() {
   const [upgradeReason, setUpgradeReason] = useState("limit"); // "limit" or "color"
 
   // Check if user has Pro plan
-  const { has } = useAuth();
-  const hasPro = has?.({ plan: "pro" });
+  // const { has } = useAuth();
+  // const hasPro = has?.({ plan: "pro" });
+
+  const hasPro=true;
 
   const { data: currentUser } = useConvexQuery(api.users.getCurrentUser);
   const { mutate: createEvent, isLoading } = useConvexMutation(
@@ -89,7 +91,7 @@ export default function CreateEventPage() {
     defaultValues: {
       locationType: "physical",
       ticketType: "free",
-      capacity: 50,
+      capacity: 60,
       themeColor: "#1e3a8a",
       category: "",
       state: "",
@@ -219,7 +221,7 @@ export default function CreateEventPage() {
             </p>
           )}
         </div>
-        <AIEventCreator onEventGenerated={handleAIGenerate} />
+        {/* {<AIEventCreator onEventGenerated={handleAIGenerate} />} */}
       </div>
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-[320px_1fr] gap-10">

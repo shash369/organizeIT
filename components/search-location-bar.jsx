@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useState, useEffect, useRef, useMemo } from "react";
@@ -27,7 +26,7 @@ export default function SearchLocationBar() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const searchRef = useRef(null);
 
-  const { data: currentUser, isLoading } = useConvexQuery(
+  const { data:currentUser,isLoading}=useConvexQuery(
     api.users.getCurrentUser
   );
   const { mutate: updateLocation } = useConvexMutation(
